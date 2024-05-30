@@ -1,0 +1,37 @@
+
+
+.image {
+  height: auto;
+  max-width: 600px;
+}
+
+.arrow-right {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-image: url('../svg/arrow__right--blue.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  align-self: center;
+}
+
+.banner {
+  height: 30vh;
+  width: 100%;
+  background-image: url('../images/banner.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.frost {
+  background-color: hsla(0, 0%, 0%, .6);
+  padding: 1rem 1.5rem;
+}
+
+.heading {
+  color: #fff;
+  font-weight: 400;
+}

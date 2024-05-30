@@ -1,0 +1,10 @@
+/* custom variables */
+:root {
+  --background :  #fff; 
+  --layer-1    :	#f4f4f4;
+  --layer-2    :  #fff;
+  --layer-3    :  #f4f4f4;
+
+  --padding-content : 1rem;
+  --font-color: #161616;
+}
