@@ -71,7 +71,7 @@ h5 {
 }
 
 .documentation {
-  width: max-content;
+  flex: 0 0 25%;
 }
 
 .documentation a {
