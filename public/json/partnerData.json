@@ -1,0 +1,62 @@
+[
+  {
+    "company": "Query Informatique",
+    "countries": "France, Luxemberg, Belgium and Switzerland",
+    "contact": "Rui Manuel Costa",
+    "phone": "014-997-3300",
+    "mobile": "",
+    "email": "rmcosta@query-informatique.com",
+    "address": "Immeuble Le Noblet-Hall A 1 Boulevard Charles De Gaulle 92700 Colomes, France",
+    "logo": "query-logo.png",
+    "summary": "",
+    "website": "https://query-informatique.com/solutions-mainframe"
+  },
+  {
+    "company": "SUPPORTEAM IBERIA, S.L",
+    "countries": "Spain, Portugal, and Latin America",
+    "contact": "Tito Boente",
+    "phone": "+34-659 473 653",
+    "mobile": "",
+    "email": "info@supporteamiberia.com or tboente@supporteamiberia.com",
+    "address": "Avda. República Argentina, 54 – 4º -7 – 46701 – Gandía – Valencia SPAIN",
+    "logo": "SupporteamIberia.png",
+    "summary": "",
+    "website": "http://www.supporteamiberia.com/"
+  },
+  {
+    "company": "MOST Software Technologies, LTD.",
+    "countries": "Israel",
+    "contact": "",
+    "phone": "+972(3)911-5511",
+    "mobile": "",
+    "email": "",
+    "address": "7 Martin Gehl st. Petach Tikva 4951254",
+    "logo": "most-tech.png",
+    "summary": "",
+    "website": "https://www.mosttechnologies.com/"
+  },
+  {
+    "company": "Fitz Software & Co.",
+    "countries": "United Kingdom & Ireland",
+    "contact": "",
+    "phone": "+972(3)911-5511",
+    "mobile": "",
+    "email": "sales@fitzsoftware.com",
+    "address": "Kilcolta House Crosshaven, County Cork P43 E129, Ireland",
+    "logo": "fitz.png",
+    "summary": "",
+    "website": "https://www.fitzsoftware.com/"
+  },
+  {
+    "company": "Eccox Software.",
+    "countries": "",
+    "contact": "Thiago da Costa e Silva",
+    "phone": "+55 11 4133-1969",
+    "mobile": "+55 11 97514-3240",
+    "email": "",
+    "address": "",
+    "logo": "eccox.png",
+    "summary": "In the global software market, Eccox is a pioneer in developing innovative solutions focused on smarter technologies to optimize software development and testing processes on the z/OS platform. Eccox provides impactful results for continuous process improvement goals for software engineering, application quality assurance, automated software development testing and optimization of computing resources to achieve optimal Mainframe efficiency. Eccox establishes strategic partnerships with global technology companies. Together with our Partners solutions, it is possible to join the Eccox mainframe expertise with optimal software technologies, people and processes to optimize Our Customers Mainframe environments to reduce CPU consumption, increase the availability of IT resources and achieve better performance of business-critical applications to thrive a cost effective Mainframe environment.",
+    "website": "https://www.eccox.com/en"
+  }
+]

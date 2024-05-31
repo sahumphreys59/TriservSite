@@ -35,3 +35,23 @@
   color: #fff;
   font-weight: 400;
 }
+
+.about-letter {
+  width: 40vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.portrait {
+  display: inline-block;
+  width: 100px;
+}
+
+
+.contact-img {
+  max-width: 300px;
+}
+
+.corp-row {
+  width: max-content;
+}

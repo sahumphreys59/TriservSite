@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:components": "parcel build src/*.js",
     "build:html": "parcel build pages/*.html",
-    "server": "node server.js"
+    "server": "node server.js",
+    "parcel:clean": "rm -rf .parcel-cache dist"
   },
   "author": "Sarah",
   "license": "ISC",

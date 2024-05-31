@@ -5,6 +5,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.static('public/images'));
 app.use(express.static('public/css'));
+app.use(express.static('public/json'));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // Route for the root
@@ -28,8 +29,23 @@ app.get('/services', (req, res) => {
 });
 
 app.get('/services/mainframe-services', (req, res) => {
-  console.log('Navigated to /services');
+  console.log('Navigated to /mainframe-services');
   res.sendFile(path.join(__dirname, 'dist', 'mainframe-services.html'));
+});
+
+app.get('/partners', (req, res) => {
+  console.log('Navigated to /partners');
+  res.sendFile(path.join(__dirname, 'dist', 'partners.html'));
+});
+
+app.get('/about', (req, res) => {
+  console.log('Navigated to /about');
+  res.sendFile(path.join(__dirname, 'dist', 'about.html'));
+});
+
+app.get('/contact', (req, res) => {
+  console.log('Navigated to /contact');
+  res.sendFile(path.join(__dirname, 'dist', 'contact.html'));
 });
 
 
