@@ -1,4 +1,5 @@
 const express = require('express');
+const eventRoutes = require('./src/event/routes');
 const app = express();
 const path = require('path');
 const port = process.env.PORT || 3000;
@@ -7,6 +8,10 @@ app.use(express.static('public/images'));
 app.use(express.static('public/css'));
 app.use(express.static('public/json'));
 app.use(express.static(path.join(__dirname, 'dist')));
+
+app.use(express.json());
+app.use('/api/v1/events', eventRoutes);
+
 
 // Route for the root
 app.get('/', (req, res) => {
@@ -47,6 +52,22 @@ app.get('/contact', (req, res) => {
   console.log('Navigated to /contact');
   res.sendFile(path.join(__dirname, 'dist', 'contact.html'));
 });
+
+app.get('/news', (req, res) => {
+  console.log('Navigated to /news');
+  res.sendFile(path.join(__dirname, 'dist', 'news.html'));
+});
+
+app.get('/services/maintence-support', (req, res) => {
+  console.log('Navigated to /maintence-support');
+  res.sendFile(path.join(__dirname, 'dist', 'maintence-support.html'));
+});
+
+app.get('/services/programming-support', (req, res) => {
+  console.log('Navigated to /programming-support');
+  res.sendFile(path.join(__dirname, 'dist', 'programming-support.html'));
+});
+
 
 
 app.listen(port, () => {

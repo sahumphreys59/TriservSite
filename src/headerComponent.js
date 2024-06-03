@@ -71,7 +71,7 @@ export class HeaderComponent extends LitElement {
           <li><a href="/support">Support</a></li>
           <li><a href="/services">Services</a></li>
           <li><a href="/partners">Partners</a></li>
-          <li><a href="#">News</a></li>
+          <li><a href="/news">News</a></li>
           <li><a href="#">Careers</a></li>
           <li><a href="/contact">Contact</a></li>
           <li><a href="/about">About</a></li>
