@@ -24,13 +24,23 @@ export class ShowFirstEvent extends LitElement {
         height: max-content;
         margin: 1rem auto !important;
         background-color: transparent;
-        background-color: hsla(0, 0%, 0%, .7);
+        background-color: hsla(0, 0%, 0%, .5);
         padding: 2rem;
       }
 
       h2, h3, h4 {
         color: white;
         font-weight: 300;
+      }
+
+       h3.heading {
+        align-self: center;
+        font-weight: 300;
+       }
+
+      .event-container {
+        display: flex;
+        gap: 2rem;
       }
 
     `
@@ -48,11 +58,15 @@ export class ShowFirstEvent extends LitElement {
     if (this.eventToDisplay) {
       return html`
       <link rel="stylesheet" href="/index.css">
-        <h2>Upcoming Event:</h2><span><h3>${this.eventToDisplay.title}</h3></span>
-        <div>
-          <h4>${formatDate(this.eventToDisplay.start_date)} - ${formatDate(this.eventToDisplay.end_date)}</h4>
-          <h4>Location: ${this.eventToDisplay.location}</h4>
+        <div class="event-container">
+          <h3 class="heading">Upcoming Event:</h3>
+          <div>
+            <h3>${this.eventToDisplay.title}</h3>
+            <h4>${formatDate(this.eventToDisplay.start_date)} - ${formatDate(this.eventToDisplay.end_date)}</h4>
+            <h4>Location: ${this.eventToDisplay.location}</h4>
+          </div>
         </div>
+
       `;
     }
     return html``;
