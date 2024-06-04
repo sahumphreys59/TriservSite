@@ -58,7 +58,6 @@ export class HeaderComponent extends LitElement {
     `;
   }
   render() {
-    console.log(`render`);
     return html`
     
     <header>

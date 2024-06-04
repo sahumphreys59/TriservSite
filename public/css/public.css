@@ -16,7 +16,7 @@
 }
 
 .banner {
-  height: 30vh;
+  min-height: 30vh;
   width: 100%;
   background-image: url('../images/banner.jpg');
   background-size: cover;
@@ -27,7 +27,7 @@
 }
 
 .frost {
-  background-color: hsla(0, 0%, 0%, .6);
+  background-color: hsla(0, 0%, 0%, .7);
   padding: 1.5rem 2rem;
 }
 

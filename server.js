@@ -12,7 +12,6 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.json());
 app.use('/api/v1/events', eventRoutes);
 
-
 // Route for the root
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
@@ -57,6 +56,7 @@ app.get('/news', (req, res) => {
   console.log('Navigated to /news');
   res.sendFile(path.join(__dirname, 'dist', 'news.html'));
 });
+
 
 app.get('/services/maintence-support', (req, res) => {
   console.log('Navigated to /maintence-support');
