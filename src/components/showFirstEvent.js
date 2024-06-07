@@ -20,7 +20,7 @@ export class ShowFirstEvent extends LitElement {
     return css`
       :host {
         display: block;
-        width: max-content;
+        width: 100%;
         height: max-content;
         margin: 1rem auto !important;
         background-color: transparent;
@@ -32,11 +32,6 @@ export class ShowFirstEvent extends LitElement {
         color: white;
         font-weight: 300;
       }
-
-       h3.heading {
-        align-self: center;
-        font-weight: 300;
-       }
 
       .event-container {
         display: flex;

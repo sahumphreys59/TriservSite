@@ -4,7 +4,6 @@ var e=globalThis,t={},r={},i=e.parcelRequirefc44;null==i&&((i=function(e){if(e i
         width: 100%;
         height: 6em;
         background-color: black;
-        padding: var(--padding-content);
       }
 
       p {
@@ -17,16 +16,23 @@ var e=globalThis,t={},r={},i=e.parcelRequirefc44;null==i&&((i=function(e){if(e i
         display: flex;
         justify-content: space-between;
         align-items: center;
+        height: 100%;
       }
 
       .footer-images {
+        margin-left: 1rem;
+        align-self: center;
         display: flex;
         gap: 1rem
       }
 
       .footer-images > * {
-        max-height: 100%;
-        max-width: 7rem;
+        max-width: 100px;
+        height: auto;
+      }
+
+      .footer-info {
+        margin: auto 1rem auto 0;
       }
       @media only screen and (max-width: 700px) {
         .footer-images {
@@ -53,4 +59,4 @@ var e=globalThis,t={},r={},i=e.parcelRequirefc44;null==i&&((i=function(e){if(e i
       </div>
     </footer>
     `}}customElements.define("footer-component",a);
-//# sourceMappingURL=about.5bc0a37b.js.map
+//# sourceMappingURL=about.eb83df4a.js.map

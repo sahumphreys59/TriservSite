@@ -22,47 +22,29 @@ export class HeaderComponent extends LitElement {
         justify-content: space-between;
       }
 
-      header img {
+      .trident-logo {
         display: inline-block;
         width: 200px;
-        height: 75px;
+        height: auto;
         flex-shrink: 0;
         padding: .5rem;
       }
 
-      nav {
-        display: flex;
-        align-items: flex-end;
+      .nav-toggle {
+        display: inline-block;
+        width: 2rem;
+        height: 2rem;
+        background-image: url('../menu.svg');
       }
 
-      ul {
-        display: flex;
-        gap: 2rem;
-        margin: 0;
-        margin-right: 1rem;
-      }
-
-      li {
-        list-style-type: none;
-      }  
-
-      a {
-        color: #fff;
-        font-size: 18px;
-        text-decoration: none;
-      }
-
-      a:hover {
-        text-decoration: underline;
-      }
     `;
   }
   render() {
     return html`
-    
+    <link rel="stylesheet" href="/index.css">
     <header>
       <a href="/">
-        <img src="../tridentLogo.png" alt="Trident logo">
+        <img src="../tridentLogo.png" alt="Trident logo" class="trident-logo">
       </a>
       <nav>
         <ul>
@@ -76,6 +58,12 @@ export class HeaderComponent extends LitElement {
           <li><a href="/about">About</a></li>
         </ul>
       </nav>
+
+      <details>
+        <summary>
+          <span class="nav-toggle"></span>
+        </summary>
+      </details>
     </header>
     `;
   }

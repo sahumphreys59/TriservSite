@@ -25,11 +25,17 @@ export class EventComponent extends LitElement {
       }
 
       .event {
-        width: max-content;
+       /* width: max-content; */
+       width: 50vw;
       }
 
       .event:not(:last-child) {
         margin-bottom: 2rem;
+      }
+
+      .event-info {
+        justify-self: flex-end;
+        margin-left: 3rem;
       }
 
       h2 {
@@ -52,7 +58,7 @@ export class EventComponent extends LitElement {
       <link rel="stylesheet" href="/index.css">
       <div class="event-list">
         ${this.eventData.map(event => html`
-          <div class="event row__layer-01">
+          <div class="event">
             <h2>${event.title}</h2>
             <div class="event-info">
               <p>${formatDate(event.start_date)} - ${formatDate(event.end_date)}</p>

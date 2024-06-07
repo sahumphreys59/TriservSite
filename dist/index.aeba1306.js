@@ -1,7 +1,7 @@
 function t(t,e,a,r){Object.defineProperty(t,e,{get:a,set:r,enumerable:!0,configurable:!0})}var e=globalThis,a={},r={},n=e.parcelRequirefc44;null==n&&((n=function(t){if(t in a)return a[t].exports;if(t in r){var e=r[t];delete r[t];var n={id:t,exports:{}};return a[t]=n,e.call(n.exports,n,n.exports),n.exports}var i=Error("Cannot find module '"+t+"'");throw i.code="MODULE_NOT_FOUND",i}).register=function(t,e){r[t]=e},e.parcelRequirefc44=n);var i=n.register;i("evz6q",function(e,a){async function r(){try{let t=await fetch("/api/v1/events");if(!t.ok)throw Error(`HTTP error! Status: ${t.status}`);return await t.json()}catch(t){console.log("Failed to fetch data:",t)}}async function n(){let t=await r(),e=new Date;return t.sort((t,a)=>{let r=new Date(t.start_date),n=new Date(a.start_date);return i(e,r)-i(e,n)})}t(e.exports,"sortDataByDate",()=>n);let i=(t,e)=>(e-t)/864e5}),i("eVKce",function(e,a){function r(t){let e=new Date(t),a=e.getDate(),r=["January","February","March","April","May","June","July","August","September","October","November","December"][e.getMonth()],n=e.getFullYear(),i=function(t){if(t>3&&t<21)return"th";switch(t%10){case 1:return"st";case 2:return"nd";case 3:return"rd";default:return"th"}}(a);return`${r} ${a}${i}, ${n}`}t(e.exports,"formatDate",()=>r)});var s=n("evz6q"),o=n("800sp"),c=n("eVKce");class l extends o.LitElement{constructor(){super(),this.eventData=[],this.eventToDisplay={}}static get properties(){return{eventData:{type:Array,attribute:!1},eventData:{type:Object,attribute:!1}}}static get styles(){return(0,o.css)`
       :host {
         display: block;
-        width: max-content;
+        width: 100%;
         height: max-content;
         margin: 1rem auto !important;
         background-color: transparent;
@@ -36,4 +36,4 @@ function t(t,e,a,r){Object.defineProperty(t,e,{get:a,set:r,enumerable:!0,configu
         </div>
 
       `:(0,o.html)``}}customElements.define("show-first-event",l);
-//# sourceMappingURL=index.47e81598.js.map
+//# sourceMappingURL=index.aeba1306.js.map

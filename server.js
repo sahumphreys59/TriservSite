@@ -7,6 +7,7 @@ const port = process.env.PORT || 3000;
 app.use(express.static('public/images'));
 app.use(express.static('public/css'));
 app.use(express.static('public/json'));
+app.use(express.static('public/svg'));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use(express.json());

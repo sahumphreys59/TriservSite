@@ -4,7 +4,6 @@
   min-height: 100vh;
 }
 
-
 main {
   flex: 1;
 }
@@ -30,13 +29,6 @@ footer-component {
   gap: 2rem;
   background-color: var(--layer-1);
   padding: 2rem;
-}
-
-.content-col {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  flex: 0 0 60%;
 }
 
 .block {
@@ -79,20 +71,9 @@ footer-component {
   gap: 1rem;
 }
 
-.center.content {
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .link-wrap  {
   margin-top: auto;
   display: flex;
   gap: .5rem;
 }
 
-@media only screen and (max-width: 1000px) {
-  .row, footer {
-    flex-direction: column;
-  }
-}

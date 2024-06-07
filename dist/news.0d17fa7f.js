@@ -6,11 +6,17 @@ function e(e,t,r,a){Object.defineProperty(e,t,{get:r,set:a,enumerable:!0,configu
       }
 
       .event {
-        width: max-content;
+       /* width: max-content; */
+       width: 50vw;
       }
 
       .event:not(:last-child) {
         margin-bottom: 2rem;
+      }
+
+      .event-info {
+        justify-self: flex-end;
+        margin-left: 3rem;
       }
 
       h2 {
@@ -20,7 +26,7 @@ function e(e,t,r,a){Object.defineProperty(e,t,{get:r,set:a,enumerable:!0,configu
       <link rel="stylesheet" href="/index.css">
       <div class="event-list">
         ${this.eventData.map(e=>(0,o.html)`
-          <div class="event row__layer-01">
+          <div class="event">
             <h2>${e.title}</h2>
             <div class="event-info">
               <p>${(0,c.formatDate)(e.start_date)} - ${(0,c.formatDate)(e.end_date)}</p>
@@ -32,4 +38,4 @@ function e(e,t,r,a){Object.defineProperty(e,t,{get:r,set:a,enumerable:!0,configu
         `)}
       </div>
     `:(0,o.html)`<p>No events</p>`}}customElements.define("event-component",l);
-//# sourceMappingURL=news.063c706d.js.map
+//# sourceMappingURL=news.0d17fa7f.js.map

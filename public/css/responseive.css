@@ -1,0 +1,69 @@
+
+/*  mobile */
+@media only screen and (max-width: 500px) {
+  h1 {
+    font-size: 22px !important;
+  }
+
+  h2 {
+    font-size: 20px !important;
+  }
+
+  h3 {
+    font-size: 18px !important;
+  }
+
+  h4 {
+    font-size: 17px !important;
+  }
+
+  .trident-logo {
+    width: 100px !important;
+    height: auto !important;
+  }
+
+  .content__layer-01 {
+    padding: 1rem !important;
+  }
+
+  .main-wrap {
+    padding: 1rem;
+  }
+
+  .row {
+    gap: 1rem;
+  }
+
+  .nav-toggle {
+    width: 2rem;
+    height: 2rem;
+  }
+
+
+
+}
+
+
+/* tablet */
+@media only screen and (max-width: 900px) {
+  .row {
+    flex-direction: column;
+  }
+
+  nav ul {
+    display: none !important;
+  }
+
+  header details {
+    display: inline-block !important;
+  }
+  .nav-toggle {
+    width: 3rem !important;
+    height: 3rem !important;
+  }
+
+}
+
+
+
+/* desktop */
