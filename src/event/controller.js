@@ -17,13 +17,13 @@ const getEventsById = (req, res) => {
 }
 
 const addEvent = (req, res) => {
-  const { title, start_date, end_date, location, details } = req.body;
 
+  const { title, start_date, end_date, location, details } = req.body;
+  console.log('request recieved: ',req.body);
   pool.query(queries.addEvent, [title, start_date, end_date, location, details], (error, results) => {
     if (error) throw error;
-    res.status(200).send("Event created successfully");
+    res.status(200).redirect('/news');
   });
-
 }
 
 const removeEvent = (req, res) => {

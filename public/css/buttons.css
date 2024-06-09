@@ -1,0 +1,13 @@
+button {
+  width: max-content;
+  padding: .5rem;
+  background-color: rgb(15, 98, 254);
+  border: 2px solid rgb(15, 98, 254);
+  color: white;
+}
+
+button:hover {
+  background-color: #0050e6;
+  cursor: pointer;
+}
+

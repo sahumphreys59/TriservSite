@@ -4,6 +4,7 @@ const app = express();
 const path = require('path');
 const port = process.env.PORT || 3000;
 
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public/images'));
 app.use(express.static('public/css'));
 app.use(express.static('public/json'));
