@@ -2,12 +2,7 @@ dialog {
   z-index: 10000;
 }
 
-dialog#form__event--new {
-  opacity: 0;
-  height: 0;
-  width: 0;
-  pointer-events: none;
-}
+
 
 dialog.visible {
   display: block;

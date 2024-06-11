@@ -1,6 +1,7 @@
 import { LitElement, html, css } from "lit";
 import { sortDataByDate } from "../utils/fetchEventData.js";
 import { formatDate } from "../utils/formatDate.js";
+import config from "../../config.js";
 
 
 export class EventComponent extends LitElement {
@@ -129,6 +130,32 @@ export class EventComponent extends LitElement {
           <button type="submit">Create</button>
         </form>
       </dialog>
+
+
+      <dialog id="dialog__event--edit">
+      <button id="button__dialog--close" title="close dialog" @click="${this.closeEditEventForm}">
+        <div class="icon__wrap">
+          <span class="dialog__btn--close"></span>
+        </div>
+      </button>
+        <form id="form__event--edit" @submit=${this.updateEvent}>
+          <h2>Edit Event</h2>
+          <lable for="title">Title:</lable>
+          <input type="text" id="edit__title" name="title">
+          <lable for="start_date">Start Date:</lable>
+          <input type="date" id="edit__start_date" name="start_date">
+          <lable for="end_date">End Date:</lable>
+          <input type="date" id="edit__end_date" name="end_date">
+          <lable for="location">Location:</lable>
+          <input type="text" id="edit__location" name="location">
+          <lable for="details">Details:</lable>
+          <input type="text" id="edit__details" name="details">
+          <button type="submit">Update</button>
+
+          <input type="hidden" id="edit__id--hidden" name="id">
+        </form>
+      </dialog>
+
       ${this.eventData.length > 0 
         ? this.eventData.map((event) => html`
         <div class="event">
@@ -143,7 +170,7 @@ export class EventComponent extends LitElement {
           </div>
           <div class="event__action-bar">
             <div class="icon__wrap">
-              <span class="button__event--edit" title="edit event" data-id="${event.id}"></span>
+              <span class="button__event--edit" title="edit event" data-id="${event.id}" @click="${this.editEvent}"></span>
             </div>
             <div class="icon__wrap">
               <span class="button__event--delete" title="delete event" data-id="${event.id}" @click="${this.deleteEvent}"></span>
@@ -151,9 +178,6 @@ export class EventComponent extends LitElement {
           </div>
         </div>
 
-        <dialog id="dialog__event--edit">
-        
-        </dialog>
         `) 
         : html`<p>No upcoming events</p>`
       }
@@ -165,14 +189,13 @@ export class EventComponent extends LitElement {
   /* utils  */
   openNewEventForm() {
     const dialog =  this.shadowRoot.querySelector('#dialog__event--new');
-    dialog.classList.remove('hidden');
-    dialog.classList.add('visible');
+    dialog.open = true;
   }
 
   closeNewEventForm() {
     const dialog =  this.shadowRoot.querySelector('#dialog__event--new');
-    dialog.classList.remove('visible');
-    dialog.classList.add('hidden');
+    dialog.open = false;
+
   }
 
   async deleteEvent(e) {
@@ -193,10 +216,119 @@ export class EventComponent extends LitElement {
     }
   } 
 
-  async editEvent(e) {
-    const idToEdit = parseInt(e.target.getAttribute('data-id'));
+  closeEditEventForm() {
+    const dialog =  this.shadowRoot.querySelector('#dialog__event--edit');
+    dialog.classList.remove('visible');
+    dialog.classList.add('hidden');
+
+    const form =  this.shadowRoot.querySelector('#form__event--edit');
+    form.reset();
   }
 
+  async editEvent(e) {
+    const idToEdit = parseInt(e.target.getAttribute('data-id'));
+    const dialog =  this.shadowRoot.querySelector('#dialog__event--edit');
+    const form = this.shadowRoot.querySelector('#form__event--edit');
+    dialog.classList.add('visible');
+    dialog.classList.remove('hidden');
+
+    try {
+      const response = await fetch(`/api/v1/events/${idToEdit}`);
+      const eventToEditArr = await response.json();
+      const eventToEdit = eventToEditArr[0];
+      console.log(eventToEdit.title);
+      this.shadowRoot.querySelector('#edit__title').value = eventToEdit.title;
+      this.shadowRoot.querySelector('#edit__start_date').value = eventToEdit.start_date;
+      this.shadowRoot.querySelector('#edit__end_date').value = eventToEdit.end_date;
+      this.shadowRoot.querySelector('#edit__location').value = eventToEdit.location;
+      this.shadowRoot.querySelector('#edit__details').value = eventToEdit.details;
+      this.shadowRoot.querySelector('#edit__id--hidden').value = eventToEdit.id;
+    } catch (error) {
+      console.error('Error: '. error);
+    }
+
+    // form.setAttribute('action', `/api/v1/events/${idToEdit}`);
+
+    // try {
+    //   const response = await fetch(`/api/v1/events/${idToEdit}`, {
+    //     method: 'PUT',
+    //   });
+    //   if (response.ok) {
+    //     this.eventData = await sortDataByDate();
+    //   } else {
+    //     throw new Error('Failed to edit event');
+    //   }
+    // } catch (error) {
+    //   console.error('Error: '. error);
+    // }
+  }
+
+  async sendPutRequest(e) {
+    e.preventDefault();
+    const form =  this.shadowRoot.querySelector('#form__event--edit');
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    const url = `/api/v1/events/${parseInt(data.id)}`;
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: data
+    };
+
+    try {
+      const response = await fetch(`/api/v1/events//:id`, options);
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok' + response.statusText);
+      }
+      const responseData = await response.json();
+      console.log('Success:', responseData);
+      alert('Update successfull');
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Update failed: ' + error.message);
+    }
+
+    this.closeEditEventForm();
+    this.eventData = await sortDataByDate();
+  }
+
+  async updateEvent(e) {
+    // e.preventDefault();
+    // const form = e.target;
+    // const data = new FormData(form);
+    // const jsonData =  {
+    //   id: data.get('id'),
+    //   title: data.get('title'),
+    //   start_date: data.get('start_date'),
+    //   end_date: data.get('end_date'),
+    //   location: data.get('location'),
+    //   details: data.get('details'),
+    // }
+
+    // const idToEdit = parseInt(data.get('id'));
+    // const url = `/api/v1/events/${idToEdit}`;
+    // console.log('Request URL:', url);
+    // try {
+    //   const response = await fetch(url, {
+    //     method: 'PUT',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(jsonData),
+    //   });
+    
+    //   if (!response.ok) {
+    //     throw new Error(`HTTP error! status: ${response.status}`);
+    //   }
+    
+    //   console.log('Response:', response.url);
+    // } catch (error) {
+    //   console.error('Error:', error);
+    // }
+  }
 }
 
 customElements.define('event-component', EventComponent);
