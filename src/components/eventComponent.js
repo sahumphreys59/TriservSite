@@ -116,17 +116,33 @@ export class EventComponent extends LitElement {
           </div>
         </button>
         <form action="/api/v1/events/" method="post">
-          <h2>Create New Event</h2>
-          <lable for="title">Title:</lable>
-          <input type="text" id="title" name="title">
-          <lable for="start_date">Start Date:</lable>
-          <input type="date" id="start_date" name="start_date">
-          <lable for="end_date">End Date:</lable>
-          <input type="date" id="end_date" name="end_date">
-          <lable for="location">Location:</lable>
-          <input type="text" id="location" name="location">
-          <lable for="details">Details:</lable>
-          <input type="text" id="details" name="details">
+          <span class="form-heading">Create New Event</span>
+
+          <div class="input-wrap">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title">
+          </div>
+
+          <div class="input-wrap">
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date">
+          </div>
+
+          <div class="input-wrap">
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date">
+          </div>
+
+          <div class="input-wrap">
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location">
+          </div>
+
+          <div class="input-wrap">
+            <label for="details">Details:</label>
+            <input type="text" id="details" name="details">
+          </div>
+
           <button type="submit">Create</button>
         </form>
       </dialog>
@@ -140,15 +156,15 @@ export class EventComponent extends LitElement {
       </button>
         <form id="form__event--edit" @submit=${this.updateEvent}>
           <h2>Edit Event</h2>
-          <lable for="title">Title:</lable>
+          <label for="title">Title:</label>
           <input type="text" id="edit__title" name="title">
-          <lable for="start_date">Start Date:</lable>
+          <label for="start_date">Start Date:</label>
           <input type="date" id="edit__start_date" name="start_date">
-          <lable for="end_date">End Date:</lable>
+          <label for="end_date">End Date:</label>
           <input type="date" id="edit__end_date" name="end_date">
-          <lable for="location">Location:</lable>
+          <label for="location">Location:</label>
           <input type="text" id="edit__location" name="location">
-          <lable for="details">Details:</lable>
+          <label for="details">Details:</label>
           <input type="text" id="edit__details" name="details">
           <button type="submit">Update</button>
 
@@ -189,12 +205,12 @@ export class EventComponent extends LitElement {
   /* utils  */
   openNewEventForm() {
     const dialog =  this.shadowRoot.querySelector('#dialog__event--new');
-    dialog.open = true;
+    dialog.showModal();
   }
 
   closeNewEventForm() {
     const dialog =  this.shadowRoot.querySelector('#dialog__event--new');
-    dialog.open = false;
+    dialog.close();
 
   }
 
