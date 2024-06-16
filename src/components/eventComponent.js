@@ -110,7 +110,7 @@ export class EventComponent extends LitElement {
     <link rel="stylesheet" href="/index.css">
       <button id="button__event--new"  @click="${this.openNewEventForm}">Create New Event</button>
       <dialog id="dialog__event--new">
-        <button id="button__dialog--close" title="close dialog" @click="${this.closeNewEventForm}">
+        <button id="button__dialog--close" title="close dialog" @click="${this.closeNewEventForm}" class="icon">
           <div class="icon__wrap">
             <span class="dialog__btn--close"></span>
           </div>
@@ -149,26 +149,46 @@ export class EventComponent extends LitElement {
 
 
       <dialog id="dialog__event--edit">
-      <button id="button__dialog--close" title="close dialog" @click="${this.closeEditEventForm}">
+      <button id="button__dialog--close" title="close dialog" @click="${this.closeEditEventForm}" class="icon">
         <div class="icon__wrap">
           <span class="dialog__btn--close"></span>
         </div>
       </button>
-        <form id="form__event--edit" @submit=${this.updateEvent}>
-          <h2>Edit Event</h2>
-          <label for="title">Title:</label>
-          <input type="text" id="edit__title" name="title">
-          <label for="start_date">Start Date:</label>
-          <input type="date" id="edit__start_date" name="start_date">
-          <label for="end_date">End Date:</label>
-          <input type="date" id="edit__end_date" name="end_date">
-          <label for="location">Location:</label>
-          <input type="text" id="edit__location" name="location">
-          <label for="details">Details:</label>
-          <input type="text" id="edit__details" name="details">
-          <button type="submit">Update</button>
+        <form id="form__event--edit">
+          <span class="form-heading">Edit Event</span>
 
-          <input type="hidden" id="edit__id--hidden" name="id">
+          <div class="input-wrap">
+            <label for="title">Title:</label>
+            <input type="text" id="edit__title" name="title">
+          </div>
+
+          <div class="input-wrap">
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="edit__start_date" name="start_date">
+          </div>
+
+
+          <div class="input-wrap">
+            <label for="end_date">End Date:</label>
+            <input type="date" id="edit__end_date" name="end_date">
+          </div>
+
+
+          <div class="input-wrap">
+            <label for="location">Location:</label>
+            <input type="text" id="edit__location" name="location">
+          </div>
+
+
+          <div class="input-wrap">
+            <label for="details">Details:</label>
+            <input type="text" id="edit__details" name="details">
+          </div>
+
+
+          <button type="submit" @click="${this.updateEvent}">Update</button>
+
+          <input type="hidden" class="edit__id--hidden" name="id">
         </form>
       </dialog>
 
@@ -234,8 +254,7 @@ export class EventComponent extends LitElement {
 
   closeEditEventForm() {
     const dialog =  this.shadowRoot.querySelector('#dialog__event--edit');
-    dialog.classList.remove('visible');
-    dialog.classList.add('hidden');
+    dialog.close();
 
     const form =  this.shadowRoot.querySelector('#form__event--edit');
     form.reset();
@@ -244,107 +263,80 @@ export class EventComponent extends LitElement {
   async editEvent(e) {
     const idToEdit = parseInt(e.target.getAttribute('data-id'));
     const dialog =  this.shadowRoot.querySelector('#dialog__event--edit');
-    const form = this.shadowRoot.querySelector('#form__event--edit');
-    dialog.classList.add('visible');
-    dialog.classList.remove('hidden');
+    dialog.showModal();
 
     try {
       const response = await fetch(`/api/v1/events/${idToEdit}`);
       const eventToEditArr = await response.json();
       const eventToEdit = eventToEditArr[0];
-      console.log(eventToEdit.title);
+      console.log(eventToEdit);
       this.shadowRoot.querySelector('#edit__title').value = eventToEdit.title;
-      this.shadowRoot.querySelector('#edit__start_date').value = eventToEdit.start_date;
-      this.shadowRoot.querySelector('#edit__end_date').value = eventToEdit.end_date;
+      this.shadowRoot.querySelector('#edit__start_date').value = this.formatDate(eventToEdit.start_date);
+      this.shadowRoot.querySelector('#edit__end_date').value = this.formatDate(eventToEdit.end_date);
       this.shadowRoot.querySelector('#edit__location').value = eventToEdit.location;
       this.shadowRoot.querySelector('#edit__details').value = eventToEdit.details;
-      this.shadowRoot.querySelector('#edit__id--hidden').value = eventToEdit.id;
+      this.shadowRoot.querySelector('.edit__id--hidden').value = eventToEdit.id;
     } catch (error) {
-      console.error('Error: '. error);
+      console.error('Error: ', error);
     }
-
-    // form.setAttribute('action', `/api/v1/events/${idToEdit}`);
-
-    // try {
-    //   const response = await fetch(`/api/v1/events/${idToEdit}`, {
-    //     method: 'PUT',
-    //   });
-    //   if (response.ok) {
-    //     this.eventData = await sortDataByDate();
-    //   } else {
-    //     throw new Error('Failed to edit event');
-    //   }
-    // } catch (error) {
-    //   console.error('Error: '. error);
-    // }
   }
 
-  async sendPutRequest(e) {
+  async updateEvent(e) {    
     e.preventDefault();
-    const form =  this.shadowRoot.querySelector('#form__event--edit');
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
-    const url = `/api/v1/events/${parseInt(data.id)}`;
-    const options = {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: data
-    };
+    const dialog = this.shadowRoot.querySelector('#dialog__event--edit');
+    const idToEdit = this.shadowRoot.querySelector('.edit__id--hidden').value;
+    const form = this.shadowRoot.querySelector('#form__event--edit');
 
-    try {
-      const response = await fetch(`/api/v1/events//:id`, options);
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok' + response.statusText);
-      }
-      const responseData = await response.json();
-      console.log('Success:', responseData);
-      alert('Update successfull');
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Update failed: ' + error.message);
+    const formData = {
+      title: this.shadowRoot.querySelector('#edit__title').value,
+      start_date: this.shadowRoot.querySelector('#edit__start_date').value,
+      end_date: this.shadowRoot.querySelector('#edit__end_date').value,
+      location: this.shadowRoot.querySelector('#edit__location').value,
+      details: this.shadowRoot.querySelector('#edit__details').value,
+      id : this.shadowRoot.querySelector('.edit__id--hidden').value
     }
 
-    this.closeEditEventForm();
+   
+
+
+
+
+
+    try {
+      console.log('inside try block');
+      const response = await fetch(`/api/v1/events/${idToEdit}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData),
+    });
+
+      if (response.ok) {
+        console.info('Successfully updated event');
+        form.reset();
+        dialog.close();
+      } else {
+        console.error('Failed to updated event');
+      }
+
+    } catch (error) {
+      console.error(error);
+    }
+
+
+
     this.eventData = await sortDataByDate();
   }
 
-  async updateEvent(e) {
-    // e.preventDefault();
-    // const form = e.target;
-    // const data = new FormData(form);
-    // const jsonData =  {
-    //   id: data.get('id'),
-    //   title: data.get('title'),
-    //   start_date: data.get('start_date'),
-    //   end_date: data.get('end_date'),
-    //   location: data.get('location'),
-    //   details: data.get('details'),
-    // }
-
-    // const idToEdit = parseInt(data.get('id'));
-    // const url = `/api/v1/events/${idToEdit}`;
-    // console.log('Request URL:', url);
-    // try {
-    //   const response = await fetch(url, {
-    //     method: 'PUT',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(jsonData),
-    //   });
-    
-    //   if (!response.ok) {
-    //     throw new Error(`HTTP error! status: ${response.status}`);
-    //   }
-    
-    //   console.log('Response:', response.url);
-    // } catch (error) {
-    //   console.error('Error:', error);
-    // }
+  formatDate(string) {
+    const date = new Date(string);
+    const formattedDate = date.toISOString().split('T')[0];
+    return formattedDate;
   }
+
 }
 
 customElements.define('event-component', EventComponent);
+
+

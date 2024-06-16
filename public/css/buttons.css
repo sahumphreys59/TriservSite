@@ -4,6 +4,7 @@ button {
   background-color: rgb(15, 98, 254);
   border: 2px solid rgb(15, 98, 254);
   color: white;
+  font-size: 1rem;
 }
 
 button:hover {
@@ -11,3 +12,12 @@ button:hover {
   cursor: pointer;
 }
 
+button.icon {
+  background-color: transparent;
+  border: none;
+  transition: transform .3s;
+}
+
+button.icon:hover {
+  transform: scale(1.3);
+}

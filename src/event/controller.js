@@ -43,11 +43,11 @@ const removeEvent = (req, res) => {
 }
 
 const updateEvent = (req, res) => {
-  console.log('did we make it here');
-  const id = parseInt(req.params.id);
-  const { title, start_date, end_date, location, details } = req.body;
+  const id  = parseInt(req.params.id);
+  const { start_date } = req.body;
+  const { end_date } = req.body;
+  const { title, location, details } = req.body;
 
-  console.log(req.body);
   pool.query(queries.getEventsById, [id], (error, results) => {
     const noEventFound = !results.rows.length;
     if (noEventFound) {
@@ -55,8 +55,9 @@ const updateEvent = (req, res) => {
     }
 
     pool.query(queries.updateEvent, [title, start_date, end_date, location, details, id], (error, results) => {
+      console.log(id, typeof(id));
       if (error) throw error;
-      res.status(200).redirect('/news');
+      res.status(200).send('Successfully updated event');
     });
   });
 }
