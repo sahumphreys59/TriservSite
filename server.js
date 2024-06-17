@@ -1,5 +1,6 @@
 const express = require('express');
 const eventRoutes = require('./src/event/routes');
+const jobRoutes = require('./src/job/routes');
 const app = express();
 const path = require('path');
 const port = process.env.PORT || 3000;
@@ -13,6 +14,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use(express.json());
 app.use('/api/v1/events', eventRoutes);
+app.use('/api/v1/jobs', jobRoutes);
 
 // Route for the root
 app.get('/', (req, res) => {
@@ -68,6 +70,11 @@ app.get('/services/maintence-support', (req, res) => {
 app.get('/services/programming-support', (req, res) => {
   console.log('Navigated to /programming-support');
   res.sendFile(path.join(__dirname, 'dist', 'programming-support.html'));
+});
+
+app.get('/careers', (req, res) => {
+  console.log('Navigated to /careers');
+  res.sendFile(path.join(__dirname, 'dist', 'careers.html'));
 });
 
 

@@ -20,17 +20,25 @@
   background-size: cover;
   background-position: center;
   display: flex;
+  gap: 2rem;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 2rem;
 }
 
 .frost {
-  background-color: hsla(0, 0%, 0%, .7);
+  /*background-color: hsla(0, 0%, 0%, .7) */
   padding: 1.5rem 2rem;
 }
 
 .heading {
   color: #fff;
+  text-shadow: 
+        -1px -1px 0 #000,  
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000;
 }
 
 .about-letter {

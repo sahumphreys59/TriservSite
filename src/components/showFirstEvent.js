@@ -20,11 +20,10 @@ export class ShowFirstEvent extends LitElement {
     return css`
       :host {
         display: block;
-        width: 100%;
+        width: max-content;
         height: max-content;
-        margin: 1rem auto !important;
         background-color: transparent;
-        background-color: hsla(0, 0%, 0%, .5);
+        background-color: hsla(0, 0%, 0%, .7);
         padding: 2rem;
       }
 
