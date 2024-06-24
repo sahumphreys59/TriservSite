@@ -28,17 +28,18 @@
 }
 
 .frost {
-  /*background-color: hsla(0, 0%, 0%, .7) */
+  background-color: hsla(0, 0%, 0%, .7);
   padding: 1.5rem 2rem;
 }
 
-.heading {
+.banner .heading {
   color: #fff;
   text-shadow: 
         -1px -1px 0 #000,  
          1px -1px 0 #000,
         -1px  1px 0 #000,
          1px  1px 0 #000;
+  font-size: 50px;
 }
 
 .about-letter {
@@ -78,4 +79,8 @@
 
 .software-content {
   flex: 0 0 70%;
+}
+
+.ftp-image {
+  width: 40vw;
 }

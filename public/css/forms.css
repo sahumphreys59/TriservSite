@@ -29,3 +29,12 @@ input[type="text"], input[type="date"] {
   font-size: 28px;
 }
 
+
+select {
+  border: none;
+  height: 2.5rem;
+  background-color: var(--layer-1);
+  border-bottom: 1px solid grey;
+  width: 100%;
+  padding-left: 1rem;
+}

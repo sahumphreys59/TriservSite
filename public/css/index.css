@@ -50,32 +50,37 @@ a:hover {
 
 h1 {
   font-size: 45px;
-  font-weight: normal; 
   font-weight: 300 ;
 }
 
-
-
 h2 {
   font-size: 30px;
-  font-weight: normal; 
+  font-weight: 300 ; 
 }
 
 h3 {
   font-size: 25px;
-  font-weight: normal; 
+  font-weight: 300 ; 
 }
 
 h4 {
   font-size: 20px;
-  font-weight: normal;
+  font-weight: 300 ;
 }
 
 h5 {
-  font-size: 15px;
-  font-weight: normal;
+  font-size: 18px;
+  font-weight: 300 ;
 }
 
 .frost h1 {
   text-align: center !important;
+}
+
+ul li {
+  list-style-type: square;
+}
+
+li > ul > li {
+  list-style-type: circle;
 }

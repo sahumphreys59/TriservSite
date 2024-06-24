@@ -17,10 +17,12 @@ const getJobById = (req, res) => {
 }
 
 const addJob = (req, res) => {
-  const {job_title, location, details, job_type } = req.body;
+  const {job_title, location, details, option } = req.body;
+  const job_type = option;
+
   jobPool.query(queries.addJob, [job_title, location, details, job_type], (error, results) => {
     if (error) throw error;
-    res.status(200).send('Job successfully created');
+    res.status(200).redirect('/careers');
   });
 }
 
@@ -42,8 +44,10 @@ const removeJob = (req, res) => {
 
 const updateJob = (req, res) => {
   const id = parseInt(req.params.id);
-  const { job_title, location, details, job_type } = req.body;
+  const { job_title, location, details, option } = req.body;
+  const job_type = option;
 
+  console.log(req.body);
   jobPool.query(queries.getJobById, [id], (error, results) => {
     const noJobFound = !results.rows.length;
     if (noJobFound) {

@@ -7,7 +7,7 @@ export async function fetchData() {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.log('Failed to fetch data:', error);
+    console.error('Failed to fetch data:', error);
   }
 }
 

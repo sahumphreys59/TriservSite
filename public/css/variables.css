@@ -5,6 +5,10 @@
   --layer-2    :  #fff;
   --layer-3    :  #f4f4f4;
 
+  --layer-1--hover : #e8e8e8;
+
   --padding-content : 1rem;
   --font-color: #161616;
+
+  --color-blue : #00f;
 }

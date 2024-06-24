@@ -72,6 +72,11 @@ app.get('/services/programming-support', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'programming-support.html'));
 });
 
+app.get('/support/ftp-support', (req, res) => {
+  console.log('Navigated to /ftp-support');
+  res.sendFile(path.join(__dirname, 'dist', 'ftp-support.html'));
+});
+
 app.get('/careers', (req, res) => {
   console.log('Navigated to /careers');
   res.sendFile(path.join(__dirname, 'dist', 'careers.html'));

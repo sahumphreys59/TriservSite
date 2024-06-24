@@ -77,3 +77,14 @@ footer-component {
   gap: .5rem;
 }
 
+.wrap {
+  background-color: var(--layer-1);
+  padding: 2rem;
+  width: max-content;
+}
+
+.wrap__layer-02 {
+  background-color: var(--layer-2);
+  padding: 2rem;
+  width: max-content;
+}

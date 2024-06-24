@@ -231,7 +231,6 @@ export class EventComponent extends LitElement {
   closeNewEventForm() {
     const dialog =  this.shadowRoot.querySelector('#dialog__event--new');
     dialog.close();
-
   }
 
   async deleteEvent(e) {
@@ -296,14 +295,7 @@ export class EventComponent extends LitElement {
       id : this.shadowRoot.querySelector('.edit__id--hidden').value
     }
 
-   
-
-
-
-
-
     try {
-      console.log('inside try block');
       const response = await fetch(`/api/v1/events/${idToEdit}`, {
       method: 'PUT',
       headers: {
@@ -317,7 +309,7 @@ export class EventComponent extends LitElement {
         form.reset();
         dialog.close();
       } else {
-        console.error('Failed to updated event');
+        console.error('Failed to update event');
       }
 
     } catch (error) {
