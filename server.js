@@ -18,6 +18,7 @@ app.use('/api/v1/jobs', jobRoutes);
 
 // Route for the root
 app.get('/', (req, res) => {
+  console.log('Navigated to landing page');
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 

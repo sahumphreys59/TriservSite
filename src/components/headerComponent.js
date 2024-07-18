@@ -13,7 +13,7 @@ export class HeaderComponent extends LitElement {
         position: sticky;
         top: 0;
         z-index: 3000;
-        box-shadow: 0px 3px 5px black;
+        box-shadow: 0px 1px 5px grey;
       }
 
       header {

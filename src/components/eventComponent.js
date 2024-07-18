@@ -38,7 +38,8 @@ export class EventComponent extends LitElement {
        padding: 2rem;
        position: relative;
        width: 60vw;
-       background-color: var(--layer-1);
+       border: 3px solid var(--layer-1);
+       background-color: transparent;
        display: flex;
        gap: 2rem;
        justify-content: space-between
@@ -196,13 +197,13 @@ export class EventComponent extends LitElement {
         ? this.eventData.map((event) => html`
         <div class="event">
 
-        <div class="event-data">
-          <h2>${event.title}</h2>
-          <div class="event-info">
-            <p>${formatDate(event.start_date)} - ${formatDate(event.end_date)}</p>
-            <p>Location: ${event.location}</p>
-            <p>Details: ${event.details}</p>
-          </div>
+          <div class="event-data">
+            <h2>${event.title}</h2>
+            <div class="event-info">
+              <p>${formatDate(event.start_date)} - ${formatDate(event.end_date)}</p>
+              <p>Location: ${event.location}</p>
+              <p>Details: ${event.details}</p>
+            </div>
           </div>
           <div class="event__action-bar">
             <div class="icon__wrap">

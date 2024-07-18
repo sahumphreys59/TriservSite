@@ -62,6 +62,12 @@ export class JobComponent extends LitElement {
       text-decoration: underline;
     }
 
+    dialog h3:hover {
+      color: currentColor;
+      cursor: auto;
+      text-decoration: none;
+    }
+
     .arrow {
       display: inline-block;
       width: 1.5rem;
