@@ -38,7 +38,7 @@ export class EventComponent extends LitElement {
        padding: 2rem;
        position: relative;
        width: 60vw;
-       border: 3px solid var(--layer-1);
+       border: 1px solid grey;;
        background-color: transparent;
        display: flex;
        gap: 2rem;

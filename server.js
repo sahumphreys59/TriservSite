@@ -4,6 +4,7 @@ const jobRoutes = require('./src/job/routes');
 const app = express();
 const path = require('path');
 const port = process.env.PORT || 3000;
+const jwt = require('jsonwebtoken'); 
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public/images'));
@@ -11,10 +12,56 @@ app.use(express.static('public/css'));
 app.use(express.static('public/json'));
 app.use(express.static('public/svg'));
 app.use(express.static(path.join(__dirname, 'dist')));
-
 app.use(express.json());
 app.use('/api/v1/events', eventRoutes);
 app.use('/api/v1/jobs', jobRoutes);
+
+/* ------------- authorization ------------- */
+app.get('/api/auth', (req,res) => {
+  res.json({
+    message: 'Hey there! Welcome to this API service'
+  });
+});
+
+app.post('/api/auth/posts', verifyToken, (req, res) => {
+  jwt.verify(req.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403); //forbidden
+    } else {
+      res.json({
+        message: 'Posts created...',
+        authData
+      });
+    }
+  })
+});
+ 
+app.post('/api/auth/login', (req, res) => {
+  const user = {
+    id: 1,
+    username: 'John',
+    email: 'john@gmail.com'
+  }
+
+  jwt.sign({user: user}, 'secretKey', (err, token) => {
+    res.json({
+      token,
+    });
+  });
+});
+
+function verifyToken(req, res, next) {
+  const bearerHeader = req.headers['authorization'];
+  if (typeof bearerHeader !== 'undefined') {
+    const bearerToken = bearerHeader.split(' ')[1]; 
+    req.token = bearerToken;
+    next();
+  } else {
+    res.sendStatus(403); //forbidden
+  }
+}
+
+/* --------------------------------------------  */
 
 // Route for the root
 app.get('/', (req, res) => {
