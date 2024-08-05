@@ -41,18 +41,18 @@ class AuthComponent extends LitElement {
       <link rel="stylesheet" href="/index.css">
       <details id="auth-detail">
         <summary>Sign In</summary>
-        <form>
+        <form action="/api/auth/login" method="post">
           <div class="input-wrap">
-            <label>Username</label>
-            <input type="text">
+            <label>Email</label>
+            <input type="text" name="email">
           </div>
           <div class="input-wrap">
             <label>Password</label>
-            <input type="text">
+            <input type="password" name="password">
           </div>
 
 
-          <button type="submit" @click="${this.logInUserHandler}">Log In</button>
+          <button type="submit">Log In</button>
         </form>
       </details>
     `
@@ -63,10 +63,30 @@ class AuthComponent extends LitElement {
   firstUpdated() {
     super.firstUpdated();
 
-    const details = this.shadowRoot.querySelector('#auth-detail');
-    const openDetail = details.open;
-    const openDetailHeight = openDetail;
-    console.log(openDetailHeight);
+    // const details = this.shadowRoot.querySelector('#auth-detail');
+    // const openDetail = details.open;
+    // const openDetailHeight = openDetail;
+    // console.log(openDetailHeight);
+
+    console.log('first updated');
+
+  }
+
+  async updated() {
+  //   const response = await fetch('/api/auth/login', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     }, 
+  //     body: JSON.stringify({})
+  //   });
+  //   if (response.ok) {
+  //     console.log('authenticated');
+  //   } else {
+  //     console.log('NOT authenticated');
+  //   }
+  //   console.log('here')
+  // }
   }
 
   getStoredAuthorizedValue() {
@@ -82,7 +102,6 @@ class AuthComponent extends LitElement {
   }
 
   logInUserHandler(e) {
-    e.preventDefault();
     sessionStorage.setItem('authorizedBoolean', 'true');
     this.getStoredAuthorizedValue();
   }

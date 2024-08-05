@@ -17,6 +17,9 @@ app.use('/api/v1/events', eventRoutes);
 app.use('/api/v1/jobs', jobRoutes);
 
 /* ------------- authorization ------------- */
+const allowedEmails = ["sarah_humphreys@triserv.com", "tim_humpreys@triserv.com", "jaye_cerutti@triserv.com"];
+const sharedPassword = "triCap08";
+
 app.get('/api/auth', (req,res) => {
   res.json({
     message: 'Hey there! Welcome to this API service'
@@ -37,18 +40,25 @@ app.post('/api/auth/posts', verifyToken, (req, res) => {
 });
  
 app.post('/api/auth/login', (req, res) => {
-  const user = {
-    id: 1,
-    username: 'John',
-    email: 'john@gmail.com'
-  }
+  // const user = {
+  //   id: 1,
+  //   username: 'John',
+  //   email: 'john@gmail.com'
+  // }
 
-  jwt.sign({user: user}, 'secretKey', (err, token) => {
-    res.json({
-      token,
-    });
-  });
-});
+  // jwt.sign({user: user}, 'secretKey', (err, token) => {
+  //   res.json({
+  //     token,
+  //   });
+  // });
+
+  const {email, password } = req.body;
+  const previousUrl = req.get('Referrer') || '/'; // Fallback to home page if no referrer
+  if (allowedEmails.includes(email) && password === sharedPassword) {
+    res.locals.userAuthenticated = true;
+    res.status(200).redirect(previousUrl);
+  }
+ });
 
 function verifyToken(req, res, next) {
   const bearerHeader = req.headers['authorization'];
