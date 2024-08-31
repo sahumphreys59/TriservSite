@@ -68,7 +68,7 @@ class AuthComponent extends LitElement {
     // const openDetailHeight = openDetail;
     // console.log(openDetailHeight);
 
-    console.log('first updated');
+    console.log('first updated'); //
 
   }
 
