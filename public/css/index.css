@@ -8,7 +8,7 @@
 @import url('forms.css');
 @import url('dialog.css');
 @import url('icon.css');
-
+@import url('animations.css');
 /* Use a more-intuitive box-sizing model on all elements and psuedo elements */
 *, *::before, *::after {
   box-sizing: border-box;

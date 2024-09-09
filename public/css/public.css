@@ -16,11 +16,11 @@
 .banner {
   min-height: 30vh;
   width: 100%;
-  /* background-image: url('../images/banner2.jpg');
+  background-image: url('../images/blue-geo.png');
   background-size: cover;
   background-position: center; 
-  background-color: #4d6a82;*/
-  background-image: linear-gradient(to bottom right, black, #454185);
+  background-color: #4d6a82;
+  /* background-image: linear-gradient(to bottom right, black, #454185); */
   display: flex;
   gap: 2rem;
   flex-direction: column;

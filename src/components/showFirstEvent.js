@@ -23,7 +23,7 @@ export class ShowFirstEvent extends LitElement {
         width: max-content;
         height: max-content;
         background-color: transparent;
-        background-color: hsla(0, 0%, 0%, .7);
+        background-color: hsla(0, 0%, 0%, .5);
         padding: 2rem;
       }
 

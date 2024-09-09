@@ -31,6 +31,13 @@ footer-component {
   padding: 2rem;
 }
 
+.row__layer-02 {
+  display: flex;
+  gap: 2rem;
+  background-color: var(--layer-2);
+  padding: 2rem;
+}
+
 .block {
   display: flex;
   flex-direction: column;
