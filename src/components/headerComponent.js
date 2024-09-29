@@ -37,6 +37,12 @@ export class HeaderComponent extends LitElement {
         background-image: url('../menu.svg');
       }
 
+      auth-component {
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+
     `;
   }
   render() {
@@ -46,6 +52,7 @@ export class HeaderComponent extends LitElement {
       <a href="/">
         <img src="../tridentLogo.png" alt="Trident logo" class="trident-logo">
       </a>
+      <auth-component></auth-component>
       <nav>
         <ul>
           <li><a href="/software">Software</a></li>

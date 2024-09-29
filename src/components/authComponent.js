@@ -5,12 +5,14 @@ class AuthComponent extends LitElement {
   constructor() {
     super();
 
-    this.isUserLoggedIn = false;
+    this.userIsAuthorized = false;
+    this.userName = '';
   }
 
   static get properties() {
     return {
-      isUserLoggedIn: { type: Boolean, attribute: false }
+      userIsAuthorized: { type: Boolean, attribute: false },
+      userName: { type: String, attribute: false}
     }
   }
 
@@ -20,95 +22,116 @@ class AuthComponent extends LitElement {
         display: block;
       }
 
-      summary:hover, span {
+      .text--signed-in {
+        color: #fff;
+      }
+
+      summary:hover {
         cursor: pointer;
       }
 
+      .button__dialog--close {
+        position: absolute;
+        right: .5rem;
+        top: .5rem;
+        padding: 0 !important;
+      }
 
+      .dialog__btn--close {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        background-image: url('../close.svg');
+      }
     `
   }
 
   connectedCallback() {
     super.connectedCallback();
-
-    this.getStoredAuthorizedValue();
+    const userAuthorizedData = sessionStorage.getItem('authorized-user');
+    if (userAuthorizedData === null || userAuthorizedData == 'false') {
+      this.userIsAuthorized = false;
+    } else {
+      this.userIsAuthorized = true;
+      this.userEmail = userAuthorizedData;
+    }
   }
 
   render() {
-    console.log('render', new Date());
-    if (!this.isUserLoggedIn) {
-      return html`
+    return html`
       <link rel="stylesheet" href="/index.css">
-      <details id="auth-detail">
-        <summary>Sign In</summary>
-        <form action="/api/auth/login" method="post">
-          <div class="input-wrap">
-            <label>Email</label>
-            <input type="text" name="email">
-          </div>
-          <div class="input-wrap">
-            <label>Password</label>
-            <input type="password" name="password">
-          </div>
+      ${!this.userIsAuthorized ? html`
+        <button @click="${this.openSignInForm}">Sign In</button>
+        <dialog id="dialog__sign-in">
+          <button title="close dialog" @click="${this.closeSignInForm}" class="icon button__dialog--close">
+            <div class="icon__wrap">
+              <span class="dialog__btn--close"></span>
+            </div>
+          </button>
+          <form @submit="${this.formSubmissionHandler}"  id="form__sign-in">
+            <div class="input-wrap">
+              <label>Email</label>
+              <input type="text" name="email" id="email" autocomplete="email">
+            </div>
+            <div class="input-wrap">
+              <label>Password</label>
+              <input type="password" name="password" id="password" autocomplete="current-password">
+            </div>
+            <button type="submit">Log In</button>
+          </form>
+        </dialog>
+      `: html`<span class="text--signed-in"><i>Signed in as: </i>${this.userName}</span><button @click="${this.signOutUserHandler}">Sign Out</button>`
+      }
+    `;
+  }
 
 
-          <button type="submit">Log In</button>
-        </form>
-      </details>
-    `
+  async formSubmissionHandler(e) {
+    e.preventDefault();
+    const email =  this.shadowRoot.querySelector('#email').value;
+    const password = this.shadowRoot.querySelector('#password').value;
+
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email, password}),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        sessionStorage.setItem('authorized-user', email);
+        this.userIsAuthorized = true;
+        this.userEmail = email;
+        this.userName = data.name;
+        console.log(data, this.userName);
+        document.dispatchEvent(new CustomEvent('auth-state', {bubbles: true, detail: this.userIsAuthorized}));
+      } else {
+        alert('Invalid email or password');
+      }
+    } catch (error) {
+      console.error('Error: ', error);
     }
-    return html`<link rel="stylesheet" href="/index.css"><button @click="${this.signOutUserHandler}">Sign Out</button>`;
-  }
-
-  firstUpdated() {
-    super.firstUpdated();
-
-    // const details = this.shadowRoot.querySelector('#auth-detail');
-    // const openDetail = details.open;
-    // const openDetailHeight = openDetail;
-    // console.log(openDetailHeight);
-
-    console.log('first updated'); //
-
-  }
-
-  async updated() {
-  //   const response = await fetch('/api/auth/login', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     }, 
-  //     body: JSON.stringify({})
-  //   });
-  //   if (response.ok) {
-  //     console.log('authenticated');
-  //   } else {
-  //     console.log('NOT authenticated');
-  //   }
-  //   console.log('here')
-  // }
-  }
-
-  getStoredAuthorizedValue() {
-    const isUserLoggedInData = sessionStorage.getItem('authorizedBoolean');
-
-    if (isUserLoggedInData === 'true') {
-      this.isUserLoggedIn = true;
-    } else if (isUserLoggedInData === 'false') {
-      this.isUserLoggedIn = false;
-    } else {
-      this.isUserLoggedIn = false;
-    }
-  }
-
-  logInUserHandler(e) {
-    sessionStorage.setItem('authorizedBoolean', 'true');
-    this.getStoredAuthorizedValue();
   }
 
   signOutUserHandler() {
-    sessionStorage.setItem('authorizedBoolean', 'false');
-    this.getStoredAuthorizedValue();
+    sessionStorage.setItem('authorized-user', false);
+    this.userIsAuthorized = false;
+    document.dispatchEvent(new CustomEvent('auth-state', {bubbles: true, detail: this.userIsAuthorized}));
+  }
+
+  openSignInForm() {
+    const dialog = this.shadowRoot.querySelector('#dialog__sign-in');
+    dialog.showModal();
+  }
+
+  closeSignInForm() {
+    const dialog = this.shadowRoot.querySelector('#dialog__sign-in');
+    dialog.close();
+
+    const form = this.shadowRoot.querySelector('#form__sign-in');
+    form.reset();
   }
 }
 

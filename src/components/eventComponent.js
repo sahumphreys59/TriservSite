@@ -10,11 +10,13 @@ export class EventComponent extends LitElement {
 
 
     this.eventData = [];
+    this.userIsAuthorized = false;
   }
 
   static get properties() {
     return {
-      eventData: { type: Array, attribute: false }
+      eventData: { type: Array, attribute: false },
+      userIsAuthorized: { type: Boolean, attribute: false }
     }
   }
 
@@ -103,95 +105,109 @@ export class EventComponent extends LitElement {
   async connectedCallback() {
     super.connectedCallback();
     this.eventData = await sortDataByDate();
+
+    const userAuthorizedData = sessionStorage.getItem('authorized-user');
+    if (userAuthorizedData === null || userAuthorizedData == 'false') {
+      this.userIsAuthorized = false;
+    } else {
+      this.userIsAuthorized = true;
+    }
+
+    document.addEventListener('auth-state', (e) => {
+      this.userIsAuthorized = e.detail;
+    });
   }
 
 
   render() {
     return html`
     <link rel="stylesheet" href="/index.css">
-      <button id="button__event--new"  @click="${this.openNewEventForm}">Create New Event</button>
-      <dialog id="dialog__event--new">
-        <button id="button__dialog--close" title="close dialog" @click="${this.closeNewEventForm}" class="icon">
+      ${this.userIsAuthorized ? html`
+        <button id="button__event--new"  @click="${this.openNewEventForm}">Create New Event</button>
+        <dialog id="dialog__event--new">
+          <button id="button__dialog--close" title="close dialog" @click="${this.closeNewEventForm}" class="icon">
+            <div class="icon__wrap">
+              <span class="dialog__btn--close"></span>
+            </div>
+          </button>
+          <form action="/api/v1/events/" method="post">
+            <span class="form-heading">Create New Event</span>
+  
+            <div class="input-wrap">
+              <label for="title">Title:</label>
+              <input type="text" id="title" name="title">
+            </div>
+  
+            <div class="input-wrap">
+              <label for="start_date">Start Date:</label>
+              <input type="date" id="start_date" name="start_date">
+            </div>
+  
+            <div class="input-wrap">
+              <label for="end_date">End Date:</label>
+              <input type="date" id="end_date" name="end_date">
+            </div>
+  
+            <div class="input-wrap">
+              <label for="location">Location:</label>
+              <input type="text" id="location" name="location">
+            </div>
+  
+            <div class="input-wrap">
+              <label for="details">Details:</label>
+              <input type="text" id="details" name="details">
+            </div>
+  
+            <button type="submit">Create</button>
+          </form>
+        </dialog>
+  
+  
+        <dialog id="dialog__event--edit">
+        <button id="button__dialog--close" title="close dialog" @click="${this.closeEditEventForm}" class="icon">
           <div class="icon__wrap">
             <span class="dialog__btn--close"></span>
           </div>
         </button>
-        <form action="/api/v1/events/" method="post">
-          <span class="form-heading">Create New Event</span>
+          <form id="form__event--edit">
+            <span class="form-heading">Edit Event</span>
+  
+            <div class="input-wrap">
+              <label for="title">Title:</label>
+              <input type="text" id="edit__title" name="title">
+            </div>
+  
+            <div class="input-wrap">
+              <label for="start_date">Start Date:</label>
+              <input type="date" id="edit__start_date" name="start_date">
+            </div>
+  
+  
+            <div class="input-wrap">
+              <label for="end_date">End Date:</label>
+              <input type="date" id="edit__end_date" name="end_date">
+            </div>
+  
+  
+            <div class="input-wrap">
+              <label for="location">Location:</label>
+              <input type="text" id="edit__location" name="location">
+            </div>
+  
+  
+            <div class="input-wrap">
+              <label for="details">Details:</label>
+              <input type="text" id="edit__details" name="details">
+            </div>
+  
+  
+            <button type="submit" @click="${this.updateEvent}">Update</button>
+  
+            <input type="hidden" class="edit__id--hidden" name="id">
+          </form>
+        </dialog>
+        `: ``}
 
-          <div class="input-wrap">
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title">
-          </div>
-
-          <div class="input-wrap">
-            <label for="start_date">Start Date:</label>
-            <input type="date" id="start_date" name="start_date">
-          </div>
-
-          <div class="input-wrap">
-            <label for="end_date">End Date:</label>
-            <input type="date" id="end_date" name="end_date">
-          </div>
-
-          <div class="input-wrap">
-            <label for="location">Location:</label>
-            <input type="text" id="location" name="location">
-          </div>
-
-          <div class="input-wrap">
-            <label for="details">Details:</label>
-            <input type="text" id="details" name="details">
-          </div>
-
-          <button type="submit">Create</button>
-        </form>
-      </dialog>
-
-
-      <dialog id="dialog__event--edit">
-      <button id="button__dialog--close" title="close dialog" @click="${this.closeEditEventForm}" class="icon">
-        <div class="icon__wrap">
-          <span class="dialog__btn--close"></span>
-        </div>
-      </button>
-        <form id="form__event--edit">
-          <span class="form-heading">Edit Event</span>
-
-          <div class="input-wrap">
-            <label for="title">Title:</label>
-            <input type="text" id="edit__title" name="title">
-          </div>
-
-          <div class="input-wrap">
-            <label for="start_date">Start Date:</label>
-            <input type="date" id="edit__start_date" name="start_date">
-          </div>
-
-
-          <div class="input-wrap">
-            <label for="end_date">End Date:</label>
-            <input type="date" id="edit__end_date" name="end_date">
-          </div>
-
-
-          <div class="input-wrap">
-            <label for="location">Location:</label>
-            <input type="text" id="edit__location" name="location">
-          </div>
-
-
-          <div class="input-wrap">
-            <label for="details">Details:</label>
-            <input type="text" id="edit__details" name="details">
-          </div>
-
-
-          <button type="submit" @click="${this.updateEvent}">Update</button>
-
-          <input type="hidden" class="edit__id--hidden" name="id">
-        </form>
-      </dialog>
 
       ${this.eventData.length > 0 
         ? this.eventData.map((event) => html`
