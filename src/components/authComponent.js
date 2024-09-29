@@ -53,7 +53,7 @@ class AuthComponent extends LitElement {
       this.userIsAuthorized = false;
     } else {
       this.userIsAuthorized = true;
-      this.userEmail = userAuthorizedData;
+      this.userName = JSON.parse(userAuthorizedData).data.name;
     }
   }
 
@@ -61,7 +61,7 @@ class AuthComponent extends LitElement {
     return html`
       <link rel="stylesheet" href="/index.css">
       ${!this.userIsAuthorized ? html`
-        <button @click="${this.openSignInForm}">Sign In</button>
+        <button @click="${this.openSignInForm}" class="button__ghost">Admin Sign In</button>
         <dialog id="dialog__sign-in">
           <button title="close dialog" @click="${this.closeSignInForm}" class="icon button__dialog--close">
             <div class="icon__wrap">
@@ -77,7 +77,7 @@ class AuthComponent extends LitElement {
               <label>Password</label>
               <input type="password" name="password" id="password" autocomplete="current-password">
             </div>
-            <button type="submit">Log In</button>
+            <button type="submit">Sign In</button>
           </form>
         </dialog>
       `: html`<span class="text--signed-in"><i>Signed in as: </i>${this.userName}</span><button @click="${this.signOutUserHandler}">Sign Out</button>`
@@ -101,11 +101,10 @@ class AuthComponent extends LitElement {
       });
       if (response.ok) {
         const data = await response.json();
-        sessionStorage.setItem('authorized-user', email);
+        const authorizedUser = {data}
+        sessionStorage.setItem('authorized-user', JSON.stringify(authorizedUser));
         this.userIsAuthorized = true;
-        this.userEmail = email;
         this.userName = data.name;
-        console.log(data, this.userName);
         document.dispatchEvent(new CustomEvent('auth-state', {bubbles: true, detail: this.userIsAuthorized}));
       } else {
         alert('Invalid email or password');

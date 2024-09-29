@@ -1,4 +1,5 @@
 import { LitElement, html, css } from "lit";
+import './authComponent.js';
 export class HeaderComponent extends LitElement {
   constructor() {
     super();
@@ -37,11 +38,13 @@ export class HeaderComponent extends LitElement {
         background-image: url('../menu.svg');
       }
 
-      auth-component {
+      /*auth-component {
+        width:2rem;
+        display: block;
         position: absolute;
         right: 0;
         top: 0;
-      }
+      } */
 
     `;
   }
