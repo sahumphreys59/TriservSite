@@ -24,6 +24,7 @@ class AuthComponent extends LitElement {
 
       .text--signed-in {
         color: #fff;
+        padding-right: 1rem;
       }
 
       summary:hover {
@@ -55,13 +56,14 @@ class AuthComponent extends LitElement {
       this.userIsAuthorized = true;
       this.userName = JSON.parse(userAuthorizedData).data.name;
     }
+
   }
 
   render() {
     return html`
       <link rel="stylesheet" href="/index.css">
       ${!this.userIsAuthorized ? html`
-        <button @click="${this.openSignInForm}" class="button__ghost">Admin Sign In</button>
+        <button @click="${this.openSignInForm}" class="button__ghost" title="Sign In">Admin Sign In</button>
         <dialog id="dialog__sign-in">
           <button title="close dialog" @click="${this.closeSignInForm}" class="icon button__dialog--close">
             <div class="icon__wrap">
@@ -77,10 +79,10 @@ class AuthComponent extends LitElement {
               <label>Password</label>
               <input type="password" name="password" id="password" autocomplete="current-password">
             </div>
-            <button type="submit">Sign In</button>
+            <button type="submit" title="Sign In">Sign In</button>
           </form>
         </dialog>
-      `: html`<span class="text--signed-in"><i>Signed in as: </i>${this.userName}</span><button @click="${this.signOutUserHandler}">Sign Out</button>`
+      `: html`<span class="text--signed-in"><i>Signed in as: </i>${this.userName}</span><button class="button__ghost" @click="${this.signOutUserHandler}" title="Sign Out">Sign Out</button>`
       }
     `;
   }

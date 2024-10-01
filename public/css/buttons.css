@@ -26,6 +26,16 @@ button.icon:hover {
   color: white;
 }
 
+.button__secondary {
+  background-color: rgb(25, 25, 26);
+  border: 2px solid #fff;
+  color: white;
+}
+
+.button__secondary:hover {
+  background-color: grey;
+}
+
 .button__ghost {
   width: max-content;
   padding: .5rem;

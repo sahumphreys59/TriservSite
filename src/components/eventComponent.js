@@ -114,6 +114,7 @@ export class EventComponent extends LitElement {
     }
 
     document.addEventListener('auth-state', (e) => {
+      console.log('here was supposed to dispatch')
       this.userIsAuthorized = e.detail;
     });
   }
@@ -211,6 +212,7 @@ export class EventComponent extends LitElement {
 
       ${this.eventData.length > 0 
         ? this.eventData.map((event) => html`
+        
         <div class="event">
 
           <div class="event-data">
@@ -221,21 +223,27 @@ export class EventComponent extends LitElement {
               <p>Details: ${event.details}</p>
             </div>
           </div>
-          <div class="event__action-bar">
-            <div class="icon__wrap">
-              <span class="button__event--edit" title="edit event" data-id="${event.id}" @click="${this.editEvent}"></span>
+          ${this.userIsAuthorized ? html`
+            <div class="event__action-bar">
+              <div class="icon__wrap">
+                <span class="button__event--edit" title="edit event" data-id="${event.id}" @click="${this.editEvent}"></span>
+              </div>
+              <div class="icon__wrap">
+                <span class="button__event--delete" title="delete event" data-id="${event.id}" @click="${()=>this.openDeleteEventDialog(event.title)}"></span>
+              </div>
             </div>
-            <div class="icon__wrap">
-              <span class="button__event--delete" title="delete event" data-id="${event.id}" @click="${this.deleteEvent}"></span>
-            </div>
-          </div>
-        </div>
 
-        `) 
+            <dialog id="dialog__event--delete">
+              <h3 id="dialogTitle"></h3>
+              <button class="button__secondary" @click="${this.cancelDeleteEventDialog}">Cancel</button>
+              <button class="button__primary" @click="${this.confirmDeleteEvent}" data-id="${event.id}">Delete</button>
+            </dialog>
+            `: html``
+          }
+        </div>`) 
         : html`<p>No upcoming events</p>`
       }
     `;
-
   }
 
 
@@ -250,7 +258,20 @@ export class EventComponent extends LitElement {
     dialog.close();
   }
 
-  async deleteEvent(e) {
+  cancelDeleteEventDialog() {
+    const dialog = this.shadowRoot.querySelector('#dialog__event--delete');
+    dialog.close();
+  }
+
+  async openDeleteEventDialog(text) {
+    const dialog = this.shadowRoot.querySelector('#dialog__event--delete');
+    dialog.showModal();
+
+    const title = this.shadowRoot.querySelector('#dialogTitle');
+    title.textContent = `Are you sure you want to delete the event '${text}'?`;
+  } 
+
+  async confirmDeleteEvent(e) {
     const idToDelete = parseInt(e.target.getAttribute('data-id'));
 
     try {
@@ -266,7 +287,11 @@ export class EventComponent extends LitElement {
       console.error('Error:', error);
       alert('An error occurred while trying to delete the event.');
     }
-  } 
+
+
+    const dialog = this.shadowRoot.querySelector('#dialog__event--delete');
+    dialog.close();
+  }
 
   closeEditEventForm() {
     const dialog =  this.shadowRoot.querySelector('#dialog__event--edit');

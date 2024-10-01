@@ -38,13 +38,11 @@ export class HeaderComponent extends LitElement {
         background-image: url('../menu.svg');
       }
 
-      /*auth-component {
-        width:2rem;
-        display: block;
+      auth-component {
         position: absolute;
         right: 0;
         top: 0;
-      } */
+      } 
 
     `;
   }

@@ -4,11 +4,13 @@ export class JobComponent extends LitElement {
   constructor() {
     super();
     this.jobData = [];
+    this.userIsAuthorized = false;
   }
 
   static get properties() {
     return {
-      jobData: { type: Array, attribute: false }
+      jobData: { type: Array, attribute: false },
+      userIsAuthorized: { type: Boolean, attribute: false }
     }
   }
 
@@ -140,11 +142,24 @@ export class JobComponent extends LitElement {
     this.jobData = await this.fetchJobData();
 
 
+    const userAuthorizedData = sessionStorage.getItem('authorized-user');
+    if (userAuthorizedData === null || userAuthorizedData == 'false') {
+      this.userIsAuthorized = false;
+    } else {
+      this.userIsAuthorized = true;
+    }
+
+    document.addEventListener('auth-state', (e) => {
+      console.log('here was supposed to dispatch')
+      this.userIsAuthorized = e.detail;
+    });
+
   }
 
   render() {
     return html`
     <link rel="stylesheet" href="/index.css">
+    ${this.userIsAuthorized ? html`
       <button @click="${this.openNewJobForm}">Create New Job</button>
       <dialog id="dialog__job--new">
         <button id="button__dialog--close" title="close dialog" @click="${this.closeNewJobForm}" class="icon">
@@ -251,6 +266,8 @@ export class JobComponent extends LitElement {
           <p class="job__display--experience_level"></p>
         </div>
       </dialog>
+      `: html``}
+
 
       <div class="container">
           ${this.jobData.length > 0
@@ -260,14 +277,17 @@ export class JobComponent extends LitElement {
                   <h3 @click="${this.renderJobDisplayModal}" data-id="${job.id}">${job.job_title}</h3>
                   <p>${job.location}</p>
                 </div>
-                <div class="job__action-bar">    
-                  <div class="icon__wrap">
-                    <span class="button__job--edit" title="edit job" data-id="${job.id}" @click="${this.openEditJobForm}"></span>
+                ${this.userIsAuthorized ? html`
+                  <div class="job__action-bar">    
+                    <div class="icon__wrap">
+                      <span class="button__job--edit" title="edit job post" data-id="${job.id}" @click="${this.openEditJobForm}"></span>
+                    </div>
+                    <div class="icon__wrap">
+                      <span class="button__job-delete" title="delete job post" data-id="${job.id}" @click="${this.deleteJob}"></span>
+                    </div>
                   </div>
-                  <div class="icon__wrap">
-                    <span class="button__job-delete" title="delete job" data-id="${job.id}" @click="${this.deleteJob}"></span>
-                  </div>
-                </div>
+                  ` : html``}
+
               </div>
 
             `) : html`<p>No postings yet</p>`

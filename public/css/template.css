@@ -1,9 +1,9 @@
-auth-component {
+/*auth-component {
   position: fixed;
   top: 0;
   right: 0;
   z-index: 5000;
-}
+}*/
 
 .page-container {
   display: flex;
