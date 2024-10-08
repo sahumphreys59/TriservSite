@@ -29,17 +29,17 @@ export class EventComponent extends LitElement {
         position: relative;
       }
 
-      #button__event--new {
+      /*#button__event--new {
         position: absolute;
         right: 0;
         top: 0;
-      }
+      }*/
 
       .event {
        /* width: max-content; */
        padding: 2rem;
        position: relative;
-       width: 60vw;
+       width: 50vw;
        border: 1px solid grey;;
        background-color: transparent;
        display: flex;

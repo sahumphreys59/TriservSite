@@ -86,3 +86,20 @@
 .ftp-image {
   width: 40vw;
 }
+
+.software__banner {
+  height: 10rem;
+  width: 100vw !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background-image: url('../images/banner.jpg');
+  background-size: cover;
+  background-position: center; 
+  display: flex;
+  align-items: center;
+}
+
+.software__banner > h1 {
+  color: #fff;
+  margin-left: 2rem;
+}
