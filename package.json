@@ -4,10 +4,10 @@
   "description": "Trident Services Commercial Site",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:components": "parcel build src/*.js",
-    "build:html": "parcel build pages/*.html",
+    "build:components": "parcel build index.js",
     "server": "node server.js",
-    "parcel:clean": "rm -rf .parcel-cache dist"
+    "parcel:clean": "rm -rf .parcel-cache dist",
+    "build:css": "parcel build public/css/index.css"
   },
   "author": "Sarah",
   "license": "ISC",

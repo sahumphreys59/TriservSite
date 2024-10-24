@@ -94,7 +94,7 @@ class AuthComponent extends LitElement {
     const password = this.shadowRoot.querySelector('#password').value;
 
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch('/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -109,6 +109,7 @@ class AuthComponent extends LitElement {
         this.userName = data.name;
         document.dispatchEvent(new CustomEvent('auth-state', {bubbles: true, detail: this.userIsAuthorized}));
       } else {
+        console.log(response);
         alert('Invalid email or password');
       }
     } catch (error) {
